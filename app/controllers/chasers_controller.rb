@@ -21,7 +21,7 @@ class ChasersController < ApplicationController
 
   def create
     @shot = Shot.find(params[:id])
-    @chaser = Chaser.create!(chaser_params)
+    @chaser = @shot.chaser.create!(chaser_params)
     redirect_to shot_chasers_path(@shot)
 
     respond_to do |format|
@@ -31,7 +31,8 @@ class ChasersController < ApplicationController
   end
 
   def show
-    @chaser = Chaser.find(params[:id])
+    @shot = Shot.find(params[:id])
+    @chaser = @shot.chaser.find(params[:id])
 
     respond_to do |format|
       format.html { render :show }
