@@ -5,9 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Tab.destroy_all
+Shot.destroy_all
+Chaser.destroy_all
+
 Tab.create(name: "Sports", description: "For all things sportsball-related.")
 Tab.create(name: "Movies", description: "Have you ever even watched a film before?")
 Tab.create(name: "Politics", description: "Because every forum needs a place for people to complain about politics.")
+Tab.create(name: "Video Games", description: "From 8-bit to 4K, playing all day long")
+Tab.create(name: "Music", description: "Jamz, tunez, whatever you wanna call them")
 
 Shot.create(title: "Go Patriots, am I right?", author: "TomB", content: "We, I mean, the Patriots are so incredible.", tab_id: 0)
 Shot.create(title: "I don't know anything about sports", author: "CluelessGuy", content: "Don't you just carry the ball and score the points?", tab_id: 0)
