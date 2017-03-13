@@ -1,0 +1,2 @@
+class ChasersController < ApplicationController
+end
