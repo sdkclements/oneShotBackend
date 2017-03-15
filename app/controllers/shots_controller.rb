@@ -10,7 +10,7 @@ class ShotsController < ApplicationController
   	@tab = Tab.find(params[:tab_id])
     @shot = Shot.find(params[:id])
 
-    render json: @shot.to_json, status: :ok
+    render json: @shot.to_json, include: :shots
   end
 
   def new
