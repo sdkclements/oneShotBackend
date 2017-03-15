@@ -9,7 +9,7 @@ class TabsController < ApplicationController
   def show
     @tab = Tab.find(params[:id])
 
-    render json: @tab.to_json, status: :ok
+    render json: @tab.to_json, include: :shots
   end
 
   def new
