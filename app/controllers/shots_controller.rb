@@ -8,11 +8,11 @@ class ShotsController < ApplicationController
   end
 
   def show
-  
+
 
   	@tab = Tab.find(params[:id])
-    @shots = Shot.find(params[:id])
-    render json: @shot.to_json
+    @shots = @tab.shots.find(params[:id])
+    render json: @shot.to_json, include: :chasers
     # respond_to do |format|
     #   format.html {render :index}
     #   format.json {render json: @shots}
@@ -20,7 +20,7 @@ class ShotsController < ApplicationController
   end
 
 
-  
+
 
   def new
     @tab = Tab.find(params[:tab_id])
@@ -46,14 +46,14 @@ class ShotsController < ApplicationController
     #   end
     # end
 
-  	
-    
+
+
       if @shot.save
         render json: @shot, status: :created, location: @shot
       else
        render json: @shot.errors, status: :unprocessable_entity
       end
-    
+
 
   end
 
