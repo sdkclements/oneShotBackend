@@ -1,12 +1,20 @@
 class ShotsController < ApplicationController
   def index
   	@tab = Tab.find(params[:tab_id])
-    @shots = Shots.all
+    @shots = @tab.shots.all
 
     render json: @shots, status: :ok
   end
-  def new
+
+  def show
   	@tab = Tab.find(params[:tab_id])
+    @shot = Shot.find(params[:id])
+
+    render json: @shot.to_json, status: :ok
+  end
+
+  def new
+    @tab = Tab.find(params[:tab_id])
     @shot = Shot.new
 
     respond_to do |format|
@@ -15,12 +23,6 @@ class ShotsController < ApplicationController
     end
   end
 
-  def show
-  	@tab = Tab.find(params[:tab_id])
-    @shot = Shot.find(params[:id])
-
-    render json: @shot, status: :ok
-  end
   def create
   	@tab = Tab.find(params[:tab_id])
     @shot = Shot.new(shot_params)
@@ -40,6 +42,5 @@ class ShotsController < ApplicationController
   def shot_params
     params.require(:shot).permit(:title, :author, :content)
   end
-
 
 end

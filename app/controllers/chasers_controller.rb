@@ -1,44 +1,41 @@
 class ChasersController < ApplicationController
   def index
-    @shot = Shot.find(params[:id])
+    @tab = Tab.find(params[:tab_id])
+    @shot = Shot.find(params[:shot_id])
     @chasers = @shot.chasers.all
 
-    # respond_to do |format|
-    #   format.html { render :show }
-    #   format.json { render json: @chaser }
-    # end
-  end
-
-  def new
-    @shot = Shot.find(params[:id])
-    @chaser = @shot.chasers.new
-
-    # respond_to do |format|
-    #   format.html { render :show }
-    #   format.json { render json: @chaser }
-    # end
-  end
-
-  def create
-    @shot = Shot.find(params[:id])
-    @chaser = @shot.chaser.create!(chaser_params)
-    redirect_to shot_chasers_path(@shot)
-
-    # respond_to do |format|
-    #   format.html { render :show }
-    #   format.json { render json: @chaser }
-    # end
+    render json: @chasers, status: :ok
   end
 
   def show
-    @shot = Shot.find(params[:id])
-    @chaser = @shot.chaser.find(params[:id])
+    @tab = Tab.find(params[:tab_id])
+    @shot = Shot.find(params[:shot_id])
+    @chaser = Chaser.find(params[:id])
 
-    # respond_to do |format|
-    #   format.html { render :show }
-    #   format.json { render json: @chaser }
-    # end
+    render json: @chaser.to_json, status: :ok
   end
+
+  def new
+    @tab = Tab.find(params[:tab_id])
+    @shot = Shot.find(params[:shot_id])
+    @chaser = Chasers.new
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @chaser }
+    end
+  end
+
+  def create
+    @tab = Tab.find(params[:tab_id])
+    @shot = Shot.find(params[:shot_id])
+    @chaser = Chaser.create!(chaser_params)
+    redirect_to shot_chasers_path(@shot)
+
+    render json: @chasers, status: :ok
+  end
+
+  private
 
   def chaser_params
     params.require(:chaser).permit(:author, :content)
