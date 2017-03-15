@@ -2,7 +2,7 @@ class ShotsController < ApplicationController
   def index
   	@tab = Tab.find(params[:tab_id])
     @shots = Shots.all
-    
+
     render json: @shots, status: :ok
   end
   def new
@@ -19,7 +19,7 @@ class ShotsController < ApplicationController
   	@tab = Tab.find(params[:tab_id])
     @shot = Shot.find(params[:id])
 
-    render json: @shot.to_json, status: :ok
+    render json: @shot, status: :ok
   end
   def create
   	@tab = Tab.find(params[:tab_id])
