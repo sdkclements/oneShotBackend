@@ -25,4 +25,8 @@ Shot.create(title: "Obligatory Trump is great post", author: "DownWithDems", con
 
 Chaser.create(author: "FootballGuy", content: "Go home, Tom.", shot_id: 1)
 Chaser.create(author: "IAmWithTheForce", content: "Kylo Ren is the bad guy tho, dummy", shot_id: 3)
+Chaser.create(author: "StarWarsGuy", content: "Well yeah but hes a pretty cool guy, eh uses his force and doesnt afraid of anything", shot_id: 3)
+Chaser.create(author: "IAmWithTheForce", content: "Anyone else think Poe is hot?", shot_id: 3)
+Chaser.create(author: "SyfoDias", content: "......no.", shot_id: 3)
+Chaser.create(author: "BeamMeUpScotty", content: "Kylo Ren is prety whiny, but I guess he's alright", shot_id: 3)
 Chaser.create(author: "CountryBoy87", content: "but trumps gonna make america grate again", shot_id: 6)
