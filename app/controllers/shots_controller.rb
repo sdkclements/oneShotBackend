@@ -1,67 +1,41 @@
 class ShotsController < ApplicationController
- def index
+  def index
+    @tab = Tab.find(params[:tab_id])
+    @shots = @tab.shots.all
+    render json: @shots, status: :ok
+  end
 
-     @tab = Tab.find(params[:tab_id])
-   @shots = @tab.shots.all
+  def show
+    @tab = Tab.find(params[:id])
+    @shots = @tab.shots.find(params[:id])
+    render json: @shot.to_json, include: :chasers
+  end
 
-   render json: @shots, status: :ok
- end
+  # see other controller comments
+  def new
+    @tab = Tab.find(params[:tab_id])
+    @shot = Shot.new
+    respond_to do |format|
+      format.html {render :show}
+      format.json {render json: @shot}
+    end
+  end
 
- def show
+  def create
+    @tab = Tab.find(params[:tab_id])
+    @shot = Shot.new(shot_params)
+    if @shot.save
+      # remove debugging puts statements
+      puts "Saved"
+      puts "=" * 55
+      render json: @shot, status: :created#, location: @shot
+    else
+      render json: @shot.errors, status: :unprocessable_entity
+    end
+  end
 
-
-     @tab = Tab.find(params[:id])
-   @shots = @tab.shots.find(params[:id])
-   render json: @shot.to_json, include: :chasers
-   # respond_to do |format|
-   #   format.html {render :index}
-   #   format.json {render json: @shots}
-   # end
- end
-
-
-
-
- def new
-   @tab = Tab.find(params[:tab_id])
-   @shot = Shot.new
-
-   respond_to do |format|
-     format.html {render :show}
-     format.json {render json: @shot}
-   end
- end
-
- def create
-
-     @tab = Tab.find(params[:tab_id])
-   @shot = Shot.new(shot_params)
-   # respond_to do |format|
-   #   if @shot.save
-   #     format.html { redirect_to @shot, notice: "made the shot"}
-   #     format.json { render json: @shot, status: :created, location: @shot}
-   #   else
-   #     format.html { render :new}
-   #     format.json {render json: @shot.errors, status: :unprocessable_entity}
-   #   end
-   # end
-
-
-
-   if @shot.save
-     puts "Saved"
-     puts "=" * 55
-     render json: @shot, status: :created#, location: @shot
-   else
-    render json: @shot.errors, status: :unprocessable_entity
-   end
-
- end
-
- private
-
- def shot_params
-   params.require(:shot).permit(:title, :author, :content, :tab_id)
- end
-
+  private
+  def shot_params
+    params.require(:shot).permit(:title, :author, :content, :tab_id)
+  end
 end
